@@ -1,4 +1,4 @@
 requests
 pandas
-pandas-ta
 pytz
+pandas-ta
