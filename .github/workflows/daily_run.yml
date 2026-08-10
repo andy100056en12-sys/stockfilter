@@ -1,1 +1,30 @@
+name: Taiwan Stock Screener (LINE)
 
+on:
+  workflow_dispatch:  # 允許手動觸發
+  schedule:
+    - cron: '35 5 * * 1-5'  # 台灣時間每日 13:35 自動執行 (UTC 05:35)
+
+jobs:
+  run-screener:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas yfinance requests
+
+      - name: Run main script
+        env:
+          LINE_TOKEN: ${{ secrets.LINE_TOKEN }}
+        run: |
+          python main.py
