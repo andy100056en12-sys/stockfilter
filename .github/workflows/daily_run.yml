@@ -1,0 +1,32 @@
+name: Taiwan Stock Screener (LINE)
+
+on:
+  schedule:
+    # 台灣時間 15:30 執行 (UTC 07:30, 週一至週五)
+    - cron: '30 7 * * 1-5'
+  workflow_dispatch: # 支援手動觸發測試
+
+jobs:
+  run-screener:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 檢查專案程式碼
+      uses: actions/checkout@v3
+
+    - name: 設定 Python 環境
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: 安裝相依套件
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: 執行選股腳本
+      env:
+        LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+        LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+      run: |
+        python main.py
