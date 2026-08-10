@@ -82,8 +82,6 @@ def main():
     print(msg)
 
     # 發送通知
-    test_msg = "🚨【LINE 推播測試】\n這是一條測試訊息，代表 API 串接完全正常！"
-    send_line_message(test_msg)
-
+    send_line_message(msg)
 if __name__ == "__main__":
     main()
