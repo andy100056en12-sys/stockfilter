@@ -38,7 +38,8 @@ def get_twse_all_stocks():
         print(f"抓取證交所資料時發生異常：{e}")
         return None
 
-def screen_stocks(stocks):
+def screen_stocks(stock):
+    
     selected = []
     print("開始進行選股條件篩選...")
     
